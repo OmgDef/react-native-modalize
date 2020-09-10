@@ -15,9 +15,10 @@ import { AlwaysOpen } from '../components/modals/AlwaysOpen';
 import { AppleMusicPlayer } from '../components/modals/AppleMusicPlayer';
 import { FacebookWebView } from '../components/modals/FacebookWebView';
 import { SlackTabView } from '../components/modals/SlackTabView';
+import { AnimatedList } from '../components/modals/AnimatedList';
 
 export const ExamplesScreen = () => {
-  const modals = Array.from({ length: 8 }).map(_ => useRef(null).current);
+  const modals = Array.from({ length: 9 }).map(_ => useRef(null).current);
   const animated = useRef(new Animated.Value(0)).current;
 
   const renderButtons = links => {
@@ -50,6 +51,7 @@ export const ExamplesScreen = () => {
           'Apple Music Player',
           'Facebook WebView',
           'Slack TabView',
+          'Animated list',
         ])}
 
         <Portal>
@@ -62,6 +64,7 @@ export const ExamplesScreen = () => {
           <AppleMusicPlayer ref={el => (modals[6] = el)} animated={animated} />
           <FacebookWebView ref={el => (modals[7] = el)} />
           <SlackTabView ref={el => (modals[8] = el)} />
+          <AnimatedList ref={el => (modals[9] = el)} />
           <AlwaysOpen />
         </Portal>
       </Layout>

@@ -626,6 +626,7 @@ const ModalizeBase = (
     useNativeDriver: USE_NATIVE_DRIVER,
     listener: ({ nativeEvent: { translationY } }: PanGestureHandlerStateChangeEvent) => {
       if (panGestureAnimatedValue) {
+        const scrolling = beginScrollYValue > 0 || translationY < 0;
         const offset = alwaysOpen ?? snapPoint ?? 0;
         const diff = Math.abs(translationY / (endHeight - offset));
         const y = translationY <= 0 ? diff : 1 - diff;
@@ -633,7 +634,7 @@ const ModalizeBase = (
 
         if (modalPosition === 'initial' && translationY > 0) {
           value = 0;
-        } else if (modalPosition === 'top' && translationY <= 0) {
+        } else if ((modalPosition === 'top' && translationY <= 0) || scrolling) {
           value = 1;
         } else {
           value = y;
@@ -817,13 +818,13 @@ const ModalizeBase = (
               <Animated.View
                 style={[
                   s.overlay__background,
-                  overlayStyle,
                   {
                     opacity: overlay.interpolate({
                       inputRange: [0, 1],
                       outputRange: [0, 1],
                     }),
                   },
+                  overlayStyle,
                 ]}
                 pointerEvents={pointerEvents}
               />
