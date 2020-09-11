@@ -632,9 +632,7 @@ const ModalizeBase = (
         const y = translationY <= 0 ? diff : 1 - diff;
         let value: number;
 
-        if (modalPosition === 'initial' && translationY > 0) {
-          value = 0;
-        } else if ((modalPosition === 'top' && translationY <= 0) || scrolling) {
+        if ((modalPosition === 'top' && translationY <= 0) || scrolling) {
           value = 1;
         } else {
           value = y;
